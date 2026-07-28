@@ -13,7 +13,7 @@ List<Map<String, dynamic>> produtos = [
   {"nome": "Feijão kicaldo", "preco": 11.00, "imagem": "assets/images/feijao.png"},
   {"nome": "Leite Piracanjuba", "preco": 5.79, "imagem": "assets/images/leite.png"},
   {"nome": "Macarrão Renata Colorido", "preco": 5.49, "imagem": "assets/images/macarrao.png"},
-  {"nome": "Café", "preco": 14.00, "imagem": "assets/images/cafe.png"},
+  {"nome": "Café Três Corações", "preco": 14.00, "imagem": "assets/images/cafe.png"},
 ];
 
 List<Map<String, dynamic>> carrinho = [];
