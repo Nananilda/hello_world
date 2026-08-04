@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../main.dart';
+import '../mainsa2.dart';
 
 class ProdutoDetalhePage extends StatefulWidget {
   final int index;
@@ -79,11 +79,6 @@ class _ProdutoDetalhePageState extends State<ProdutoDetalhePage> {
               produto.nome,
               textAlign: TextAlign.center,
               style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              produto.categoria,
-              style: TextStyle(color: Colors.grey.shade600),
             ),
             const SizedBox(height: 12),
             Text(

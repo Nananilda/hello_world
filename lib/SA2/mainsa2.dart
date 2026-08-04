@@ -15,7 +15,6 @@ class Produto {
   final String nome;
   final double preco;
   final String imagem;
-  final String categoria;
   final String descricao;
 
   const Produto({
@@ -23,7 +22,6 @@ class Produto {
     required this.nome,
     required this.preco,
     required this.imagem,
-    required this.categoria,
     required this.descricao,
   });
 }
@@ -34,7 +32,6 @@ const List<Produto> produtos = [
     nome: "Arroz Kometudo",
     preco: 32.00,
     imagem: "assets/images/arroz.png",
-    categoria: "Alimentos",
     descricao: "Arroz branco tipo 1, pacote de 5kg.",
   ),
   Produto(
@@ -42,7 +39,6 @@ const List<Produto> produtos = [
     nome: "Feijão Kicaldo",
     preco: 11.00,
     imagem: "assets/images/feijao.png",
-    categoria: "Alimentos",
     descricao: "Feijão carioca, pacote de 1kg.",
   ),
   Produto(
@@ -50,7 +46,6 @@ const List<Produto> produtos = [
     nome: "Leite Piracanjuba",
     preco: 5.79,
     imagem: "assets/images/leite.png",
-    categoria: "Bebidas",
     descricao: "Leite integral, caixa de 1 litro.",
   ),
   Produto(
@@ -58,7 +53,6 @@ const List<Produto> produtos = [
     nome: "Macarrão Renata Colorido",
     preco: 5.49,
     imagem: "assets/images/macarrao.png",
-    categoria: "Alimentos",
     descricao: "Macarrão Pena Colorido, pacote de 500g.",
   ),
   Produto(
@@ -66,37 +60,63 @@ const List<Produto> produtos = [
     nome: "Café Três Corações",
     preco: 14.00,
     imagem: "assets/images/cafe.png",
-    categoria: "Bebidas",
     descricao: "Café de torra alta para disfarçar a sujeira, pacote de 500g.",
   ),
   Produto(
-    id: 4,
+    id: 5,
     nome: "Bolinho Ana Maria",
     preco: 2.99,
     imagem: "assets/images/bolinho.jpg",
-    categoria: "Alimentos",
     descricao: "Bolinho de gotas de chocolate, pacote de 70g.",
+  ),
+  Produto(
+    id: 6,
+    nome: "Maçã Fuji",
+    preco: 5.74,
+    imagem: "assets/images/maca.png",
+    descricao: "Maçã fuji, embalagem 500g.",
+  ),
+  Produto(
+    id: 7,
+    nome: "Mamão Formosa",
+    preco: 9.41,
+    imagem: "assets/images/mamao.png",
+    descricao: "Mamão Formosa inteiro, unidade de 1,3kg.",
+  ),
+  Produto(
+    id: 8,
+    nome: "Abacate",
+    preco: 6.42,
+    imagem: "assets/images/abacate.png",
+    descricao: "Abacate inteiro, unidade de 200g.",
+  ),
+  Produto(
+    id: 9,
+    nome: "Arroz Kiarroz",
+    preco: 3.49,
+    imagem: "assets/images/arrozk.png",
+    descricao: "Arroz branco tipo 1, pacote de 1kg.",
   ),
 ];
 
 class ItemCarrinho {
   final Produto produto;
   int quantidade;
-
   ItemCarrinho(this.produto, this.quantidade);
 }
 
 class CarrinhoController {
   List<ItemCarrinho> itens = [];
-
-    void adicionar(Produto produto, {int quantidade = 1}) {
+  void adicionar(Produto produto, {int quantidade = 1}) {
     for (var item in itens) {
       if (item.produto.id == produto.id) {
         item.quantidade += quantidade;
         return;
       }
     }
-    itens.add(ItemCarrinho(produto, quantidade));
+    itens.add(
+      ItemCarrinho(produto, quantidade),
+    );
   }
 
   void remover(Produto produto) {
@@ -138,8 +158,6 @@ class CarrinhoController {
 }
 
 final carrinho = CarrinhoController();
-
-
 final ValueNotifier<ThemeMode> temaNotifier = ValueNotifier(ThemeMode.light);
 
 final GoRouter router = GoRouter(
@@ -149,10 +167,7 @@ final GoRouter router = GoRouter(
       path: '/carrinho',
       builder: (context, state) => const CarrinhoPage(),
     ),
-    GoRoute(
-      path: '/usuario',
-      builder: (context, state) => const UsuarioPage(),
-    ),
+    GoRoute(path: '/usuario', builder: (context, state) => const UsuarioPage()),
     GoRoute(
       path: '/produto/:index',
 
@@ -186,7 +201,7 @@ class MeuApp extends StatelessWidget {
           theme: ThemeData(
             useMaterial3: true,
             brightness: Brightness.light,
-            scaffoldBackgroundColor: Colors.grey.shade100,
+            scaffoldBackgroundColor: Colors.grey[100],
             colorSchemeSeed: Colors.deepPurple,
             appBarTheme: const AppBarTheme(
               backgroundColor: Colors.deepPurple,
@@ -228,7 +243,6 @@ class _ComprasPageState extends State<ComprasPage> {
   }
 
   Future<void> _iniciar() async {
-
     final prefs = await SharedPreferences.getInstance();
     final temaEscuro = prefs.getBool('tema_escuro') ?? false;
     temaNotifier.value = temaEscuro ? ThemeMode.dark : ThemeMode.light;
@@ -243,8 +257,7 @@ class _ComprasPageState extends State<ComprasPage> {
 
   List<Produto> get produtosFiltrados {
     return produtos
-        .where((p) => p.nome.toLowerCase().contains(busca.toLowerCase()))
-        .toList();
+        .where((p) => p.nome.toLowerCase().contains(busca.toLowerCase())).toList();
   }
 
   void adicionarDaLista(Produto produto) {
@@ -263,8 +276,7 @@ class _ComprasPageState extends State<ComprasPage> {
       builder: (context) => AlertDialog(
         title: const Text("Sobre o Mercadinho"),
         content: const Text(
-          "App de compras feito em Flutter, com carrinho, "
-          "perfil de usuário e preferências salvas no dispositivo.",
+          "App de compras feito com carrinho,"
         ),
         actions: [
           TextButton(
@@ -282,7 +294,6 @@ class _ComprasPageState extends State<ComprasPage> {
       appBar: AppBar(
         title: const Text("Mercadinho"),
         actions: [
-
           PopupMenuButton<String>(
             onSelected: (valor) {
               if (valor == "sobre") sobreOApp();
@@ -308,8 +319,10 @@ class _ComprasPageState extends State<ComprasPage> {
                 children: [
                   Icon(Icons.storefront, color: Colors.white, size: 36),
                   SizedBox(height: 8),
-                  Text("Mercadinho",
-                      style: TextStyle(color: Colors.white, fontSize: 18)),
+                  Text(
+                    "Mercadinho",
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
                 ],
               ),
             ),
@@ -354,7 +367,6 @@ class _ComprasPageState extends State<ComprasPage> {
                   padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),
                   child: TextField(
                     decoration: const InputDecoration(
-                      hintText: "Buscar produtos...",
                       prefixIcon: Icon(Icons.search),
                       border: OutlineInputBorder(),
                       isDense: true,
@@ -387,12 +399,10 @@ class _ComprasPageState extends State<ComprasPage> {
                                 ),
                                 title: Text(
                                   produto.nome,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
+                                  style: const TextStyle(fontWeight: FontWeight.bold),
                                 ),
-                                subtitle: Text(
-                                  "R\$ ${produto.preco.toStringAsFixed(2)}",
-                                ),
+
+                                subtitle: Text("R\$ ${produto.preco.toStringAsFixed(2)}"),
 
                                 trailing: IconButton(
                                   icon: const Icon(Icons.add),
@@ -415,7 +425,9 @@ class _ComprasPageState extends State<ComprasPage> {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.store), label: "Compras"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart), label: "Carrinho"),
+            icon: Icon(Icons.shopping_cart),
+            label: "Carrinho",
+          ),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Usuário"),
         ],
       ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../main.dart';
+import '../mainsa2.dart';
 
 class UsuarioPage extends StatefulWidget {
   const UsuarioPage({super.key});
@@ -16,8 +16,6 @@ class _UsuarioPageState extends State<UsuarioPage> {
 
   bool temaEscuro = false;
   bool carregando = true;
-  double totalGasto = 0;
-  List<String> ultimasCompras = [];
 
   @override
   void initState() {
@@ -34,8 +32,6 @@ class _UsuarioPageState extends State<UsuarioPage> {
 
     setState(() {
       temaEscuro = prefs.getBool('tema_escuro') ?? false;
-      totalGasto = prefs.getDouble('total_gasto') ?? 0.0;
-      ultimasCompras = prefs.getStringList('ultimas_compras') ?? [];
       carregando = false;
     });
   }
@@ -180,25 +176,6 @@ class _UsuarioPageState extends State<UsuarioPage> {
                       leading: const Icon(Icons.phone),
                       title: const Text("Telefone"),
                       subtitle: const Text("(19) 4002-8922"),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Card(
-                    child: ListTile(
-                      leading: const Icon(Icons.bar_chart),
-                      title: const Text("Total já gasto"),
-                      subtitle: Text("R\$ ${totalGasto.toStringAsFixed(2)}"),
-                    ),
-                  ),
-                  Card(
-                    child: ListTile(
-                      leading: const Icon(Icons.history),
-                      title: const Text("Últimos itens comprados"),
-                      subtitle: Text(
-                        ultimasCompras.isEmpty
-                            ? "Nenhuma compra ainda."
-                            : ultimasCompras.join(", "),
-                      ),
                     ),
                   ),
                 ],

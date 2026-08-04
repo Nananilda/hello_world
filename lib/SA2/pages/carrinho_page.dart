@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../main.dart';
+import '../mainsa2.dart';
 
 class CarrinhoPage extends StatefulWidget {
   const CarrinhoPage({super.key});
