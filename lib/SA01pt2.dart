@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
                   style: TextStyle(color: Colors.white, fontSize: 15),
                 ),
 
-                SizedBox(height: 8),
+                SizedBox(height: 10),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween, 
