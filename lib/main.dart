@@ -1,78 +1,99 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.grey[200],
-        appBar: AppBar(title: Text("Meu Cartão"), centerTitle: true),
+      debugShowCheckedModeBanner: false,
+      title: "minha localização",
+      home: const LocalizacaoPage(),            
+    );
+  }
+}
 
-        body: Center(
-          child: Container(
-            width: 350,
-            height: 200,
-            padding: EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Colors.deepPurple,
-              borderRadius: BorderRadius.circular(20),
-            ),
+class LocalizacaoPage extends StatefulWidget {
+  const LocalizacaoPage({super.key});
 
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Banco SESI / SENAI",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                    Icon(Icons.contactless, size: 30, color: Colors.white),
-                  ],
-                ),
+  @override
+  State<LocalizacaoPage> createState() => _LocalizacaoPageState();
+}
 
-                SizedBox(height: 20),
+class _LocalizacaoPageState extends State<LocalizacaoPage> { 
+  double latitude = 0;
+  double longitude = 0;
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Icon(Icons.sim_card, size: 30, color: Colors.orangeAccent),
-                  ],
-                ),
-                
-                Text(
-                  "1 2 3 4  5 6 7 8  9 0 1 2  3 4 5 6",
-                  style: TextStyle(color: Colors.white, fontSize: 15),
-                ),
+  Future<void> buscarLocalizacao() async {
+    bool servicoAtivo = await Geolocator.isLocationServiceEnabled();
 
-                SizedBox(height: 8),
+    if (!servicoAtivo) {
+      await Geolocator.openLocationSettings();
+      return;
+    }
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween, 
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Titular", style: TextStyle(color: Colors.white)), 
-                        Text("Anna Hilda", style: TextStyle(color: Colors.white)),
-                      ],
-                    ),
+    LocationPermission permissao = await Geolocator.checkPermission();
+    
+    if (permissao == LocationPermission.denied) {
+      permissao = await Geolocator.requestPermission();
+    }
 
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text("Validade", style: TextStyle(color: Colors.white)),
-                        Text("06/90", style: TextStyle(color: Colors.white)),
-                      ],
-                    )
-                  ],
-                )
-              ],
-            ),
+    if (permissao == LocationPermission.denied ||
+        permissao == LocationPermission.deniedForever) {
+          return;
+        }
+    
+    Position posicao = await Geolocator.getCurrentPosition();
+
+    setState(() {
+      latitude = posicao.latitude;
+      longitude = posicao.longitude;
+    });
+
+    print('latitude: $latitude');
+    print('longitude: $longitude');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("minha localização")),
+
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+
+            children: [
+              const Icon(Icons.location_on, size: 80, color: Colors.red),
+
+              const SizedBox(height: 20),
+
+              const Text("localização atual", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+
+              const SizedBox(height: 30),
+
+              Text("Latitude: $latitude", style: const TextStyle(fontSize: 18)),
+
+              const SizedBox(height: 10),
+
+              Text("longitude: $longitude", style: const TextStyle(fontSize: 18)),
+
+              const SizedBox(height: 30),
+
+              ElevatedButton(
+                onPressed: buscarLocalizacao, 
+                child: const Text("atualizar localização")
+              ),
+            ],
           ),
         ),
       ),
