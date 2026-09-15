@@ -41,6 +41,8 @@ dependencies:
   latlong2: ^0.10.1
   sensors_plus: ^7.1.0
   flutter_blue_plus: ^2.3.12
+  audioplayers: ^6.8.1
+  image_picker: ^1.2.3
 
 dev_dependencies:
   flutter_test:
@@ -61,6 +63,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/audio/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
