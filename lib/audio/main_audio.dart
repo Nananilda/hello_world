@@ -30,7 +30,8 @@ const List<Frutinha> produtos = [
     emoji: '🍊',
     preco: 5.00,
     categoria: 'Cítricos',
-    descricao: 'Fruta cítrica rica em vitamina C e bastante utilizada em sucos e sobremesas.',
+    descricao:
+        'Fruta cítrica rica em vitamina C e bastante utilizada em sucos e sobremesas.',
   ),
   Frutinha(
     id: 2,
@@ -39,7 +40,8 @@ const List<Frutinha> produtos = [
     emoji: '🥝',
     preco: 8.00,
     categoria: 'Cítricos',
-    descricao: 'Fruta de sabor levemente ácido, com polpa verde e pequenas sementes.',
+    descricao:
+        'Fruta de sabor levemente ácido, com polpa verde e pequenas sementes.',
   ),
   Frutinha(
     id: 3,
@@ -48,7 +50,8 @@ const List<Frutinha> produtos = [
     emoji: '🍎',
     preco: 10.00,
     categoria: 'Clássicos',
-    descricao: 'Fruta crocante e de sabor adocicado, muito consumida in natura.',
+    descricao:
+        'Fruta crocante e de sabor adocicado, muito consumida in natura.',
   ),
   Frutinha(
     id: 4,
@@ -57,7 +60,8 @@ const List<Frutinha> produtos = [
     emoji: '🍌',
     preco: 7.00,
     categoria: 'Clássicos',
-    descricao: 'Fruta macia e naturalmente doce, muito utilizada em lanches e sobremesas.',
+    descricao:
+        'Fruta macia e naturalmente doce, muito utilizada em lanches e sobremesas.',
   ),
   Frutinha(
     id: 5,
@@ -66,7 +70,8 @@ const List<Frutinha> produtos = [
     emoji: '🍉',
     preco: 30.00,
     categoria: 'Doces',
-    descricao: 'Fruta grande e bastante hidratante, com polpa geralmente vermelha e sabor adocicado.',
+    descricao:
+        'Fruta grande e bastante hidratante, com polpa geralmente vermelha e sabor adocicado.',
   ),
   Frutinha(
     id: 6,
@@ -75,7 +80,8 @@ const List<Frutinha> produtos = [
     emoji: '🍇',
     preco: 20.00,
     categoria: 'Doces',
-    descricao: 'Fruta pequena e suculenta, encontrada em diferentes variedades e cores.',
+    descricao:
+        'Fruta pequena e suculenta, encontrada em diferentes variedades e cores.',
   ),
 ];
 
