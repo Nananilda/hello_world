@@ -68,7 +68,8 @@ class _NovoProdutoPageState extends State<NovoProdutoPage> {
 
     final novoId =
         produtos.map((p) => p.id).reduce((a, b) => a > b ? a : b) + 1;
-    final preco = double.tryParse(_precoController.text.replaceAll(',', '.')) ?? 0;
+    final preco =
+        double.tryParse(_precoController.text.replaceAll(',', '.')) ?? 0;
 
     final novoProduto = Frutinha(
       id: novoId,
@@ -117,7 +118,11 @@ class _NovoProdutoPageState extends State<NovoProdutoPage> {
                   backgroundColor: const Color(0xFFEFEFEF),
                   backgroundImage: _foto != null ? FileImage(_foto!) : null,
                   child: _foto == null
-                      ? const Icon(Icons.camera_alt, size: 32, color: Colors.grey)
+                      ? const Icon(
+                          Icons.camera_alt,
+                          size: 32,
+                          color: Colors.grey,
+                        )
                       : null,
                 ),
               ),
@@ -149,7 +154,9 @@ class _NovoProdutoPageState extends State<NovoProdutoPage> {
             TextFormField(
               controller: _precoController,
               decoration: const InputDecoration(labelText: 'Preço (R\$)'),
-              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+              keyboardType: const TextInputType.numberWithOptions(
+                decimal: true,
+              ),
               validator: (v) {
                 if (v == null || v.trim().isEmpty) return 'Informe o preço';
                 final valor = double.tryParse(v.replaceAll(',', '.'));
